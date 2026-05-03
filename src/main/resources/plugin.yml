@@ -1,0 +1,5 @@
+name: Vox
+version: '0.0.1'
+main: mc.godhand.vox.Vox
+api-version: '1.21'
+authors: [Adelemphii]
