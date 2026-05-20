@@ -17,6 +17,7 @@
   </properties>
 
   <build>
+    <finalName>${project.name}</finalName>
     <defaultGoal>clean package</defaultGoal>
     <plugins>
       <plugin>
@@ -24,8 +25,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
+          <source>16</source>
+          <target>16</target>
         </configuration>
       </plugin>
       <plugin>

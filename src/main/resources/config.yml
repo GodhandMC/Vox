@@ -1,0 +1,290 @@
+save-focus: true
+
+channels:
+  staff:
+    tag: "Staff"
+    display-name: "Staff Channel"
+    commands:
+      - "staff"
+      - "tm"
+    color: "DARK_PURPLE"
+    bracket-color: "DARK_PURPLE"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+    staff: true
+    bold: true
+  story_team:
+    tag: "ST"
+    display-name: "Story Team"
+    commands:
+      - "st"
+    color: "DARK_GREEN"
+    bracket-color: "DARK_GREEN"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+    staff: true
+    bold: true
+  development:
+    tag: "Dev"
+    display-name: "Development Team"
+    commands:
+      - "dev"
+    color: "GOLD"
+    bracket-color: "GOLD"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+    staff: true
+    bold: true
+  moderation:
+    tag: "Mod"
+    display-name: "Moderation Team"
+    commands:
+      - "mod"
+    color: "DARK_AQUA"
+    bracket-color: "DARK_AQUA"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+    staff: true
+    bold: true
+  community:
+    tag: "C"
+    display-name: "Community Team"
+    commands:
+      - "community"
+      - "ct"
+    color: "LIGHT_PURPLE"
+    bracket-color: "LIGHT_PURPLE"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+    staff: true
+    bold: true
+  map:
+    tag: "Map"
+    display-name: "Map Team"
+    commands:
+      - "map"
+    color: "GOLD"
+    bracket-color: "GOLD"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+    staff: true
+    bold: true
+  admin:
+    tag: "A"
+    display-name: "Admin Channel"
+    commands:
+      - "admin"
+    color: "DARK_RED"
+    bracket-color: "DARK_RED"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+    staff: true
+    bold: true
+  roleplay:
+    tag: "RP"
+    display-name: "Roleplay"
+    commands:
+      - "rp"
+    color: "DARK_GREEN"
+    bracket-color: "DARK_GREEN"
+    range:
+      type: PROXIMITY
+      distance: 20
+    cooldown: 0
+    permanent: true
+    networked: false
+  roleplay_ooc:
+    tag: "LOOC"
+    display-name: "Local OOC"
+    commands:
+      - "looc"
+    color: "GRAY"
+    bracket-color: "DARK_GRAY"
+    range:
+      type: PROXIMITY
+      distance: 20
+    cooldown: 1
+    permanent: false
+    networked: false
+  whisper:
+    tag: "W"
+    display-name: "Whisper"
+    commands:
+      - "whisper"
+      - "w"
+    color: "BLUE"
+    bracket-color: "BLUE"
+    range:
+      type: PROXIMITY
+      distance: 2
+    cooldown: 0
+    permanent: false
+    networked: false
+    quiet: true
+  whisper_ooc:
+    tag: "WOOC"
+    display-name: "Whisper OOC"
+    commands:
+      - "wooc"
+    color: "GRAY"
+    bracket-color: "DARK_GRAY"
+    range:
+      type: PROXIMITY
+      distance: 2
+    cooldown: 0
+    permanent: false
+    networked: false
+  undertone:
+    tag: "Quiet"
+    display-name: "Undertone"
+    commands:
+      - "quiet"
+      - "q"
+    color: "AQUA"
+    bracket-color: "AQUA"
+    range:
+      type: PROXIMITY
+      distance: 8
+    cooldown: 0
+    permanent: false
+    networked: false
+    quiet: true
+  undertone_ooc:
+    tag: "QOOC"
+    display-name: "Undertone OOC"
+    commands:
+      - "qooc"
+    color: "GRAY"
+    bracket-color: "DARK_GRAY"
+    range:
+      type: PROXIMITY
+      distance: 8
+    cooldown: 0
+    permanent: false
+    networked: false
+  shout:
+    tag: "Shout"
+    display-name: "Shout"
+    commands:
+      - "shout"
+      - "s"
+    color: "RED"
+    bracket-color: "DARK_RED"
+    range:
+      type: PROXIMITY
+      distance: 48
+    cooldown: 0
+    permanent: false
+    networked: false
+  shout_ooc:
+    tag: "SOOC"
+    display-name: "Shout OOC"
+    commands:
+      - "sooc"
+    color: "GRAY"
+    bracket-color: "DARK_GRAY"
+    range:
+      type: PROXIMITY
+      distance: 48
+    cooldown: 5
+    permanent: false
+    networked: false
+  local_event:
+    tag: "Local Event"
+    display-name: "Local Event Broadcast"
+    commands:
+      - "leb"
+    color: "DARK_GREEN"
+    bracket-color: "GREEN"
+    range:
+      type: PROXIMITY
+      distance: 100
+    cooldown: 0
+    permanent: false
+    networked: false
+  world_event:
+    tag: "World Event"
+    display-name: "World Event Broadcast"
+    commands:
+      - "web"
+    color: "DARK_GREEN"
+    bracket-color: "GREEN"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: false
+    networked: true
+    bold: true
+  local_moderator:
+    tag: "Local Moderator"
+    display-name: "Local Moderator"
+    commands:
+      - "mrp"
+    color: "BLUE"
+    bracket-color: "DARK_BLUE"
+    range:
+      type: PROXIMITY
+      distance: 48
+    cooldown: 0
+    permanent: false
+    networked: false
+  broadcast:
+    tag: "Broadcast"
+    display-name: "Broadcast"
+    commands:
+      - "bc"
+    color: "YELLOW"
+    bracket-color: "YELLOW"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+  event_broadcast:
+    tag: "Event"
+    display-name: "Event Broadcast"
+    commands:
+      - "ebc"
+    color: "DARK_GREEN"
+    bracket-color: "GREEN"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+  staff_broadcast:
+    tag: "Staff Broadcast"
+    display-name: "Staff Broadcast"
+    commands:
+      - "sbc"
+    color: "RED"
+    bracket-color: "DARK_RED"
+    text-color: "YELLOW"
+    range:
+      type: GLOBAL
+    cooldown: 0
+    permanent: true
+    networked: true
+    staff: true
+    signed-name: true
