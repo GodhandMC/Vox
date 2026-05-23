@@ -3,3 +3,8 @@ version: '0.0.1'
 main: mc.godhand.vox.Vox
 api-version: '1.21'
 authors: [ Adelemphii ]
+
+commands:
+    vox:
+        description: Main command for Vox plugin.
+        usage: /<command> <subcommand>

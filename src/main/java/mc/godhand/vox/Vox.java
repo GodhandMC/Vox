@@ -1,9 +1,12 @@
 package mc.godhand.vox;
 
+import co.aikar.commands.PaperCommandManager;
 import mc.godhand.vox.channel.VoxChannel;
+import mc.godhand.vox.command.VoxCommand;
 import mc.godhand.vox.config.VoxConfig;
 import mc.godhand.vox.config.VoxConfigLoader;
 import mc.godhand.vox.config.parsers.ConfigValidationException;
+import mc.godhand.vox.listener.ChatListener;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -42,10 +45,22 @@ public final class Vox extends JavaPlugin {
         if(provider != null) {
             this.luckPerms = provider.getProvider();
         }
+
+        registerCommands();
+        registerEvents();
     }
 
     @Override
     public void onDisable() {
+    }
+
+    private void registerCommands() {
+        PaperCommandManager manager = new PaperCommandManager(this);
+        manager.registerCommand(new VoxCommand(this, manager));
+    }
+
+    private void registerEvents() {
+        Bukkit.getPluginManager().registerEvents(new ChatListener(this), this);
     }
 
     public VoxConfig getVoxConfig() {
