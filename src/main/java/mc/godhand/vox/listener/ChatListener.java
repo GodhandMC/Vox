@@ -6,9 +6,13 @@ import mc.godhand.vox.channel.VoxChannel;
 import mc.godhand.vox.channel.range.ChannelRange;
 import mc.godhand.vox.channel.range.GlobalRange;
 import mc.godhand.vox.channel.range.ProximityRange;
+import mc.godhand.vox.chat.ChatResolution;
 import mc.godhand.vox.chat.Chatter;
+import mc.godhand.vox.depend.IdentitiesBridge;
 import mc.godhand.vox.util.ComponentUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -31,23 +35,32 @@ public class ChatListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(AsyncChatEvent event) {
         Player player = event.getPlayer();
-        String message = ComponentUtil.getContent(event.message());
+        String rawMessage = ComponentUtil.getContent(event.message());
         event.setCancelled(true);
 
         Chatter chatter = plugin.getChatManager().getChatter(player.getUniqueId());
-        VoxChannel channel = chatter.getFocusedChannel();
+        ChatResolution resolution = ChatResolution.resolveChat(chatter, rawMessage);
+        if(resolution.focusSwitch()) {
+            return;
+        }
+        VoxChannel channel = resolution.channel();
         if(channel == null) {
-            return; // Fallback later
+            channel = chatter.getFocusedChannel() != null ? chatter.getFocusedChannel() : plugin.getVoxConfig().getChannel("ooc");
+        }
+        if(!chatter.getPlayer().hasPermission(channel.getSpeakPermission())) {
+            player.sendMessage(Component.text("You don't have permission to speak in ", NamedTextColor.RED)
+                    .append(channel.getFormattedDisplayName()));
+            return;
         }
 
-        handleMessage(player, channel, message);
+        handleMessage(player, channel, resolution.message());
     }
 
     private void handleMessage(Player player, VoxChannel channel, String message) {
         if(!player.hasPermission(channel.getSpeakPermission())) return;
 
         Set<Player> recipients = resolveRecipients(player, channel);
-        Component formatted = format(player, channel, message);
+        Component formatted = channel.getId().contains("ooc") ? formatOOC(player, channel, message) : format(player, channel, message);
 
         for(Player target : recipients) {
             target.sendMessage(formatted);
@@ -60,13 +73,13 @@ public class ChatListener implements Listener {
             return new HashSet<>(Bukkit.getOnlinePlayers());
         }
 
-        if(range instanceof ProximityRange prox) {
+        if(range instanceof ProximityRange(double radius)) {
             Set<Player> result = new HashSet<>();
             for(Player target : Bukkit.getOnlinePlayers()) {
                 if(!target.getWorld().equals(sender.getWorld())) {
                     continue;
                 }
-                if(sender.getLocation().distanceSquared(target.getLocation()) <= prox.radius() * prox.radius()) {
+                if(sender.getLocation().distanceSquared(target.getLocation()) <= radius * radius) {
                     result.add(target);
                 }
             }
@@ -76,11 +89,38 @@ public class ChatListener implements Listener {
     }
 
     private Component format(Player sender, VoxChannel channel, String message) {
-        String name = sender.getName(); // later: character system
+        String name = IdentitiesBridge.getDisplayName(sender);
         return Component.text()
-                .append(channel.getFormattedTag())
+                .append(
+                        channel.getFormattedTag()
+                                .hoverEvent(HoverEvent.showText(Component.text("Focus Channel").color(NamedTextColor.GRAY)))
+                                .clickEvent(ClickEvent.runCommand("/vox focus " + channel.getId()))
+                )
                 .append(Component.space())
-                .append(Component.text(name + ": ", NamedTextColor.WHITE))
+                .append(
+                        Component.text(name + ": ", NamedTextColor.WHITE)
+                                .clickEvent(ClickEvent.runCommand("/card " + sender.getName()))
+                                .hoverEvent(HoverEvent.showText(Component.text("View Player Card").color(NamedTextColor.GRAY)))
+                )
+                .append(Component.text(message, channel.getColor()))
+                .build();
+    }
+
+    private Component formatOOC(Player sender, VoxChannel channel, String message) {
+        String name = sender.getName();
+        return Component.text()
+                .append(
+                        channel.getFormattedTag()
+                                .hoverEvent(HoverEvent.showText(Component.text("Focus Channel").color(NamedTextColor.GRAY)))
+                                .clickEvent(ClickEvent.runCommand("/vox focus " + channel.getId()))
+                )
+                .append(Component.space())
+                .append(
+                        Component.text(name + ": ", NamedTextColor.WHITE)
+                                .clickEvent(ClickEvent.suggestCommand("/msg " + sender.getName()))
+                                .hoverEvent(HoverEvent.showText(Component.text("Send Message").color(NamedTextColor.GRAY)))
+                )
+
                 .append(Component.text(message, channel.getColor()))
                 .build();
     }

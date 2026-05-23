@@ -44,16 +44,6 @@ public final class IdentitiesBridge {
         return false;
     }
 
-    public static String getPersonaName(Player player) {
-        if(!IS_ENABLED) {
-            return player.getDisplayName();
-        }
-
-        Character identity = getCharacter(player.getUniqueId());
-
-        return identity != null ? identity.getName() : getPlayerName(player);
-    }
-
     public static int getCurrentPersonaId(Player player) {
         if(!IS_ENABLED) {
             return 0;

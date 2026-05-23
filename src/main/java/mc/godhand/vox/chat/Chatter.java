@@ -1,21 +1,29 @@
 package mc.godhand.vox.chat;
 
 import mc.godhand.vox.channel.VoxChannel;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 public class Chatter {
+
     private final UUID uuid;
     private VoxChannel focusedChannel;
     private VoxChannel lastChannel;
     private String emoteColor;
     private long lastMessageTimestamp;
+
     public Chatter(UUID uuid) {
         this.uuid = uuid;
     }
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public Player getPlayer() {
+        return Bukkit.getPlayer(uuid);
     }
 
     public VoxChannel getFocusedChannel() {

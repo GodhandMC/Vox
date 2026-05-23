@@ -25,6 +25,12 @@ public final class Vox extends JavaPlugin {
     }
 
     @Override
+    public void onLoad() {
+        super.onLoad();
+        instance = this;
+    }
+
+    @Override
     public void onEnable() {
         saveDefaultConfig();
         try {
@@ -35,9 +41,13 @@ public final class Vox extends JavaPlugin {
             return;
         }
 
-        for(VoxChannel channel : voxConfig.channels().values()) {
-            getLogger().info("Loaded channel '" + channel.getId() + "' with tag '" + channel.getTag() + "'.");
-        }
+//        for(VoxChannel channel : voxConfig.channels().values()) {
+//            getLogger().info("Loaded channel '" + channel.getId() + "' with tag '" + channel.getTag() + "'.");
+//        }
+
+//        for(String alias : voxConfig.aliasIndex().keySet()) {
+//            getLogger().info("Registered alias '" + alias + "' for channel '" + voxConfig.aliasIndex().get(alias).getId() + "'.");
+//        }
 
         this.chatManager = new ChatManager(this);
 

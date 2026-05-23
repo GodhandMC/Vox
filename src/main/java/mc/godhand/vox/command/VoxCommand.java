@@ -58,9 +58,10 @@ public class VoxCommand extends BaseCommand {
         VoxConfig config = plugin.getVoxConfig();
         Component message = Component.text("Available channels: ");
         for(VoxChannel channel : config.channels().values()) {
-            Component channelComp = Component.text(channel.getId()).color(channel.getColor())
+            if(!player.hasPermission(channel.getSpeakPermission())) continue;
+            Component channelComp = Component.text(channel.getDisplayName()).color(channel.getColor())
                     .clickEvent(ClickEvent.suggestCommand("/vox focus " + channel.getId()));
-            message = message.append(channelComp).append(Component.text(" "));
+            message = message.append(channelComp).append(Component.text(", "));
         }
         player.sendMessage(message);
     }
