@@ -1,4 +1,4 @@
-package mc.godhand.vox.data;
+package mc.godhand.vox.data.channel;
 
 import mc.godhand.vox.channel.VoxChannel;
 import mc.godhand.vox.channel.range.ChannelRange;

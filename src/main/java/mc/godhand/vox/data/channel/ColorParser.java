@@ -1,5 +1,6 @@
-package mc.godhand.vox.data;
+package mc.godhand.vox.data.channel;
 
+import mc.godhand.vox.data.ConfigValidationException;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 import java.util.Locale;

@@ -1,6 +1,7 @@
 package mc.godhand.vox.data;
 
 import mc.godhand.vox.channel.VoxChannel;
+import mc.godhand.vox.data.channel.ChannelConfigParser;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
