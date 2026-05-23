@@ -1,6 +1,18 @@
 save-focus: true
 
 channels:
+  global_ooc:
+    tag: "OOC"
+    display-name: "Global OOC"
+    commands:
+      - "ooc"
+    color: "GRAY"
+    bracket-color: "DARK_GRAY"
+    range:
+      type: GLOBAL
+    cooldown: 5
+    permanent: true
+    networked: true
   staff:
     tag: "Staff"
     display-name: "Staff Channel"

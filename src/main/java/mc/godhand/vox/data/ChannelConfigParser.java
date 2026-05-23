@@ -23,8 +23,9 @@ public final class ChannelConfigParser {
         NamedTextColor bracketColor = ColorParser.parse(section.getString("bracket-color", section.getString("color")));
         ChannelRange range = RangeParser.parse(section.getConfigurationSection("range"));
         int cooldown = section.getInt("cooldown", 0);
-        boolean permanent = section.getBoolean("permanent");
-        boolean networked = section.getBoolean("networked");
+        boolean permanent = section.getBoolean("permanent", true);
+        boolean networked = section.getBoolean("networked", false);
+        boolean staff = section.getBoolean("staff", false);
 
         return new VoxChannel(
                 id,
@@ -36,7 +37,8 @@ public final class ChannelConfigParser {
                 range,
                 cooldown,
                 permanent,
-                networked
+                networked,
+                staff
         );
     }
 }

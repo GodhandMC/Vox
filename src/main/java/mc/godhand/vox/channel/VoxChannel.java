@@ -3,7 +3,12 @@ package mc.godhand.vox.channel;
 import mc.godhand.vox.channel.range.ChannelRange;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public final class VoxChannel {
@@ -27,6 +32,7 @@ public final class VoxChannel {
     private final int cooldownSeconds;
     private final boolean permanent;
     private final boolean proxy;
+    private final boolean staff;
 
     // Permissions
     private final String usePermission;
@@ -38,7 +44,7 @@ public final class VoxChannel {
     private final Component formattedDisplayName;
 
     public VoxChannel(String id, String tag, String displayName, Set<String> commands, NamedTextColor color, NamedTextColor bracketColor, ChannelRange range, int cooldownSeconds,
-                      boolean permanent, boolean proxy) {
+                      boolean permanent, boolean proxy, boolean staff) {
         this.id = id.toLowerCase();
         this.tag = tag;
         this.displayName = displayName;
@@ -51,9 +57,12 @@ public final class VoxChannel {
         this.cooldownSeconds = cooldownSeconds;
         this.permanent = permanent;
         this.proxy = proxy;
+        this.staff = staff;
+
         this.usePermission = "vox.channel." + id;
         this.speakPermission = usePermission + ".speak";
         this.moderatePermission = usePermission + ".mod";
+        registerPermissions();
 
         // Cache formatted components once
         this.formattedTag = Component.text("[", bracketColor)
@@ -64,6 +73,46 @@ public final class VoxChannel {
                 Component.text("[", bracketColor)
                         .append(Component.text(displayName, color))
                         .append(Component.text("]", bracketColor));
+    }
+
+    private void registerPermissions() {
+        PermissionDefault defaultPermission =
+                this.staff
+                        ? PermissionDefault.FALSE
+                        : PermissionDefault.TRUE;
+
+        Map<String, Boolean> useChildren = new HashMap<>();
+        useChildren.put(this.speakPermission, true);
+        useChildren.put(this.moderatePermission, true);
+
+        try {
+            Bukkit.getPluginManager().addPermission(
+                    new Permission(
+                            this.usePermission,
+                            "Use channel " + this.id,
+                            defaultPermission,
+                            useChildren
+                    )
+            );
+
+            Bukkit.getPluginManager().addPermission(
+                    new Permission(
+                            this.speakPermission,
+                            "Speak in channel " + this.id,
+                            defaultPermission
+                    )
+            );
+
+            Bukkit.getPluginManager().addPermission(
+                    new Permission(
+                            this.moderatePermission,
+                            "Moderate channel " + this.id,
+                            PermissionDefault.OP
+                    )
+            );
+
+        } catch (IllegalArgumentException ignored) {
+        }
     }
 
     public String getId() {
