@@ -13,33 +13,26 @@ import java.util.Set;
 
 public final class VoxChannel {
 
-    // Internal ID
     private final String id;
 
-    // User-facing metadata
     private final String tag;
     private final String displayName;
 
-    // Commands / aliases
     private final Set<String> commands;
 
-    // Styling
     private final NamedTextColor color;
     private final NamedTextColor bracketColor;
 
-    // Behavior
     private final ChannelRange range;
     private final int cooldownSeconds;
     private final boolean permanent;
     private final boolean proxy;
     private final boolean staff;
 
-    // Permissions
     private final String usePermission;
     private final String speakPermission;
     private final String moderatePermission;
 
-    // Cached formatted components
     private final Component formattedTag;
     private final Component formattedDisplayName;
 
@@ -111,7 +104,7 @@ public final class VoxChannel {
                     )
             );
 
-        } catch (IllegalArgumentException ignored) {
+        } catch(IllegalArgumentException ignored) {
         }
     }
 
@@ -129,6 +122,10 @@ public final class VoxChannel {
 
     public Set<String> getCommands() {
         return commands;
+    }
+
+    public String getFirstAlias() {
+        return commands.stream().findFirst().orElse(id);
     }
 
     public NamedTextColor getColor() {

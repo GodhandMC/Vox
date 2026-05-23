@@ -1,6 +1,6 @@
 package mc.godhand.vox.util;
 
-import mc.godhand.vox.data.ConfigValidationException;
+import mc.godhand.vox.config.parsers.ConfigValidationException;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class ConfigUtil {

@@ -1,9 +1,8 @@
-package mc.godhand.vox.data.channel;
+package mc.godhand.vox.config.parsers;
 
 import mc.godhand.vox.channel.range.ChannelRange;
 import mc.godhand.vox.channel.range.GlobalRange;
 import mc.godhand.vox.channel.range.ProximityRange;
-import mc.godhand.vox.data.ConfigValidationException;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.Locale;

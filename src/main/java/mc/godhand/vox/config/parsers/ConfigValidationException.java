@@ -1,4 +1,4 @@
-package mc.godhand.vox.data;
+package mc.godhand.vox.config.parsers;
 
 public final class ConfigValidationException
         extends RuntimeException {
