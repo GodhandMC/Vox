@@ -1,6 +1,7 @@
 package mc.godhand.vox.chat;
 
 import mc.godhand.vox.channel.VoxChannel;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,7 +12,7 @@ public class Chatter {
     private final UUID uuid;
     private VoxChannel focusedChannel;
     private VoxChannel lastChannel;
-    private String emoteColor;
+    private TextColor emoteColor;
     private long lastMessageTimestamp;
 
     public Chatter(UUID uuid) {
@@ -42,11 +43,11 @@ public class Chatter {
         this.lastChannel = lastChannel;
     }
 
-    public String getEmoteColor() {
+    public TextColor getEmoteColor() {
         return emoteColor;
     }
 
-    public void setEmoteColor(String emoteColor) {
+    public void setEmoteColor(TextColor emoteColor) {
         this.emoteColor = emoteColor;
     }
 
